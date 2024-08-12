@@ -1,3 +1,4 @@
 venv
 controleestoque.db
 temp.txt
+*.pyc

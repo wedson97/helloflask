@@ -92,6 +92,25 @@ def getUsuarioById(id):
     return usuarioDict
 
 
+def updateUsuario(id, data):
+    # Criação do usuário.
+    nome = data.get('nome')
+    nascimento = data.get('nascimento')
+
+    # Persistir os dados no banco.
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        'UPDATE tb_usuario SET nome = ?, nascimento = ? WHERE id = ?', (nome, nascimento, id))
+    conn.commit()
+
+    rowupdate = cursor.rowcount
+
+    conn.close()
+    # Retornar a quantidade de linhas.
+    return rowupdate
+
+
 @app.route("/usuarios/<int:id>", methods=['GET', 'DELETE', 'PUT'])
 def usuario(id):
     if request.method == 'GET':
@@ -100,3 +119,11 @@ def usuario(id):
             return jsonify(usuario), 200
         else:
             return {}, 404
+    elif request.method == 'PUT':
+        # Recuperar dados da requisição: json.
+        data = request.json
+        rowupdate = updateUsuario(id, data)
+        if rowupdate != 0:
+            return (data, 201)
+        else:
+            return (data, 304)
