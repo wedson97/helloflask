@@ -10,17 +10,6 @@ from Globals import DATABASE_NAME
 
 app = Flask(__name__)
 
-
-# def get_db_connection():
-#     conn = None
-#     try:
-#         conn = sqlite3.connect(DATABASE_NAME)
-#         conn.row_factory = sqlite3.Row
-#     except sqlite3.Error as e:
-#         print('Não foi possível conectar')
-
-#     return conn
-
 def get_db_connection():
     """
     gera um conexão com banco de dados, armazenando informações no contexto da aplicação
@@ -116,26 +105,6 @@ def index():
     return (jsonify({"versao": 1}), 200)
 
 
-# def getUsuarios():
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     resultset = cursor.execute('SELECT * FROM tb_usuario').fetchall()
-#     usuarios = []
-#     for linha in resultset:
-#         id = linha[0]
-#         nome = linha[1]
-#         nascimento = linha[2]
-#         # usuarioObj = Usuario(nome, nascimento)
-#         usuarioDict = {
-#             "id": id,
-#             "nome": nome,
-#             "nascimento": nascimento
-#         }
-#         usuarios.append(usuarioDict)
-#     conn.close()
-#     return usuarios
-
-
 def get_usuarios(): # Alterado de getUsuarios para get_usuarios
     """
     Função que pega todos os usuarios
@@ -150,28 +119,10 @@ def get_usuarios(): # Alterado de getUsuarios para get_usuarios
         dumps serializa em um string json e o loads desserializa, não é 
         necessario fazer isso pois o json_usuarios já retorna uma lista de jsons
     """
-    resultset = query_db('SELECT * FROM tb_usuario')
-    usuarios_json = [{"id":id,"nome":nome,"nascimento":nascimento}
-                     for id, nome, nascimento in resultset]
+    resultset = query_db('SELECT * FROM tb_usuario WHERE deleted_at is null ')
+    usuarios_json = [{"id":id,"nome":nome,"nascimento":nascimento,"created_at":created_at,"deleted_at":deleted_at}
+                     for id, nome, nascimento,created_at,deleted_at in resultset]
     return loads(dumps(usuarios_json))
-
-
-# def setUsuario(data):
-#     # Criação do usuário.
-#     nome = data.get('nome')
-#     nascimento = data.get('nascimento')
-#     # Persistir os dados no banco.
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     cursor.execute(
-#         f'INSERT INTO tb_usuario(nome, nascimento) values ("{nome}", "{nascimento}")')
-#     conn.commit()
-#     id = cursor.lastrowid
-#     data['id'] = id
-#     conn.close()
-#     # Retornar o usuário criado.
-#     return data
-
 
 def set_usuario(data): #Alterado de setUsuario para set_usuario
     """
@@ -197,30 +148,10 @@ def usuarios():
         # Listagem dos usuários
         response_usuarios = get_usuarios()
         return jsonify(response_usuarios), 200
-    # Recuperar dados da requisição: json.
+        # Recuperar dados da requisição: json.
     data = request.json
     data = set_usuario(data)
     return jsonify(data), 201
-
-
-# def getUsuarioById(id):
-#     usuarioDict = None
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     linha = cursor.execute(
-#         f'SELECT * FROM tb_usuario WHERE id = {id}').fetchone()
-#     if linha is not None:
-#         id = linha[0]
-#         nome = linha[1]
-#         nascimento = linha[2]
-#         # usuarioObj = Usuario(nome, nascimento)
-#         usuarioDict = {
-#             "id": id,
-#             "nome": nome,
-#             "nascimento": nascimento
-#         }
-#     conn.close()
-#     return usuarioDict
 
 
 def get_usuario_by_id(user_id): #Alterado de getUsuarioById para get_usuario_by_id
@@ -237,23 +168,6 @@ def get_usuario_by_id(user_id): #Alterado de getUsuarioById para get_usuario_by_
         return json
     return None
 
-# def updateUsuario(id, data):
-#     # Criação do usuário.
-#     nome = data.get('nome')
-#     nascimento = data.get('nascimento')
-#     # Persistir os dados no banco.
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     cursor.execute(
-#         'UPDATE tb_usuario SET nome = ?, nascimento = ? WHERE id = ?', (nome, nascimento, id))
-#     conn.commit()
-
-#     rowupdate = cursor.rowcount
-
-#     conn.close()
-#     # Retornar a quantidade de linhas.
-#     return rowupdate
-
 def update_usuario(user_id, data): #Alterado de updateUsuario para update_usuario
     """
     Função utilizada para modificar um usuario apartir do id
@@ -262,11 +176,19 @@ def update_usuario(user_id, data): #Alterado de updateUsuario para update_usuari
                        = ? WHERE id = ?''',(data.get('nome'),data.get('nascimento'), user_id))
     return linhas_modificadas
 
-def delete_usuario(user_id): #Alterado de deleteUsuario para delete_usuario
+def delete_usuario_fisico(user_id): #Alterado de deleteUsuario para delete_usuario
     """
     Função que deleta um usuario apartir do id
     """
     linhas_modificadas = query_db_with_commit( 'DELETE FROM tb_usuario WHERE id = ?',(user_id,))
+    return linhas_modificadas
+
+
+def delete_usuario_logico(user_id): #Alterado de deleteUsuario para delete_usuario
+    """
+    Função que deleta um usuario apartir do id
+    """
+    linhas_modificadas = query_db_with_commit( 'UPDATE tb_usuario SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?',(user_id,))
     return linhas_modificadas
 
 @app.route("/usuarios/<int:user_id>", methods=['GET', 'DELETE', 'PUT'])
@@ -288,7 +210,18 @@ def usuario(user_id):
             return (data, 201)
         return (data, 304)
     elif request.method == 'DELETE':
-        linhas_modificadas = delete_usuario(user_id)
+        linhas_modificadas = delete_usuario_fisico(user_id)
         if linhas_modificadas:
             return {"message": f"{linhas_modificadas}"}, 200
     return {},404
+
+@app.route("/usuarios/logico/<int:user_id>", methods=['DELETE'])
+def delete_usuario_com_metodo_logico(user_id):
+    """
+        Função que controla a chamada de
+        deletar um usuario na forma logica
+    """
+    linhas_modificadas = delete_usuario_logico(user_id)
+    if linhas_modificadas:
+        return {"message": f"{linhas_modificadas}"}, 200
+     
