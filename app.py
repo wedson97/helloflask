@@ -120,7 +120,8 @@ def get_usuarios(): # Alterado de getUsuarios para get_usuarios
         necessario fazer isso pois o json_usuarios já retorna uma lista de jsons
     """
     resultset = query_db('SELECT * FROM tb_usuario WHERE deleted_at is null ')
-    usuarios_json = [{"id":id,"nome":nome,"nascimento":nascimento,"created_at":created_at,"deleted_at":deleted_at}
+    usuarios_json = [{"id":id,"nome":nome,"nascimento":nascimento,
+                    "created_at":created_at,"deleted_at":deleted_at}
                      for id, nome, nascimento,created_at,deleted_at in resultset]
     return loads(dumps(usuarios_json))
 
@@ -188,7 +189,8 @@ def delete_usuario_logico(user_id): #Alterado de deleteUsuario para delete_usuar
     """
     Função que deleta um usuario apartir do id
     """
-    linhas_modificadas = query_db_with_commit( 'UPDATE tb_usuario SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?',(user_id,))
+    linhas_modificadas = query_db_with_commit( '''UPDATE tb_usuario SET
+                       deleted_at = CURRENT_TIMESTAMP WHERE id = ?''',(user_id,))
     return linhas_modificadas
 
 @app.route("/usuarios/<int:user_id>", methods=['GET', 'DELETE', 'PUT'])
@@ -224,4 +226,4 @@ def delete_usuario_com_metodo_logico(user_id):
     linhas_modificadas = delete_usuario_logico(user_id)
     if linhas_modificadas:
         return {"message": f"{linhas_modificadas}"}, 200
-     
+    return {},404
