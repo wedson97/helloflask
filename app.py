@@ -269,7 +269,7 @@ def delete_usuario(user_id): #Alterado de deleteUsuario para delete_usuario
     linhas_modificadas = query_db_with_commit( 'DELETE FROM tb_usuario WHERE id = ?',(user_id,))
     return linhas_modificadas
 
-@app.route("/usuarios/<int:id>", methods=['GET', 'DELETE', 'PUT'])
+@app.route("/usuarios/<int:user_id>", methods=['GET', 'DELETE', 'PUT'])
 def usuario(user_id):
     """
     Função que controla a chamada das funções 
@@ -277,8 +277,8 @@ def usuario(user_id):
     apartir do metodo que é utilizado na requisição
     """
     if request.method == 'GET':
-        response_usuario = get_usuario_by_id(id)
-        if usuario is not None:
+        response_usuario = get_usuario_by_id(user_id)
+        if response_usuario is not None:
             return jsonify(response_usuario), 200
     elif request.method == 'PUT':
         # Recuperar dados da requisição: json.
