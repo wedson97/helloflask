@@ -1,0 +1,25 @@
+import sqlite3
+from flask import  g
+from Globals import DATABASE_NAME
+
+def get_db_connections():
+    """
+    gera um conexão com banco de dados, armazenando informações no contexto da aplicação
+
+    - conn = getattr(g, '_database', None)
+        Pega o '_database' do 'g', se n'ao tiver ele retorna none e conecta depois 
+        (Fica no contexto)
+        
+    - conn = g._database = sqlite3.connect(DATABASE_NAME)
+        Coloca no "_database" database do contexto a conexão com o sqlite3 e coloca a conexão em 
+        contexto dentro do conn
+
+    -conn.row_factory = sqlite3.Row
+        O resultado da query vem em um objeto do sqlite3 que se comporta como dicionario
+    
+    """
+    conn = getattr(g, '_database', None)
+    if conn is None:
+        conn = g._database = sqlite3.connect(DATABASE_NAME)
+        conn.row_factory = sqlite3.Row
+    return conn

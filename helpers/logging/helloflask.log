@@ -1,0 +1,59 @@
+2024-08-19 14:55:20,980 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:55:20,981 INFO _internal _log  * Debugger PIN: 696-402-172
+2024-08-19 14:55:23,812 INFO _internal _log [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-19 14:55:23,812 INFO _internal _log [33mPress CTRL+C to quit[0m
+2024-08-19 14:55:23,812 INFO _internal _log  * Restarting with stat
+2024-08-19 14:55:23,928 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:55:23,928 INFO _internal _log  * Debugger PIN: 696-402-172
+2024-08-19 14:55:26,703 INFO app index Rota padão
+2024-08-19 14:55:26,703 INFO _internal _log 127.0.0.1 - - [19/Aug/2024 14:55:26] "GET / HTTP/1.1" 200 -
+2024-08-19 14:55:27,134 INFO app index Rota padão
+2024-08-19 14:55:27,135 INFO _internal _log 127.0.0.1 - - [19/Aug/2024 14:55:27] "GET / HTTP/1.1" 200 -
+2024-08-19 14:55:30,307 INFO _internal _log [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-08-19 14:55:30,308 INFO _internal _log [33mPress CTRL+C to quit[0m
+2024-08-19 14:55:30,308 INFO _internal _log  * Restarting with stat
+2024-08-19 14:55:30,427 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:55:30,428 INFO _internal _log  * Debugger PIN: 696-402-172
+2024-08-19 14:57:26,921 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:57:26,973 INFO _internal _log  * Restarting with stat
+2024-08-19 14:57:27,116 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:57:27,116 INFO _internal _log  * Debugger PIN: 696-402-172
+2024-08-19 14:58:23,356 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:58:23,400 INFO _internal _log  * Restarting with stat
+2024-08-19 14:58:25,598 INFO _internal _log  * Restarting with stat
+2024-08-19 14:58:25,741 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:58:25,741 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:58:26,753 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:58:26,800 INFO _internal _log  * Restarting with stat
+2024-08-19 14:58:26,924 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:58:26,924 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:58:54,044 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:58:54,095 INFO _internal _log  * Restarting with stat
+2024-08-19 14:58:54,229 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:58:54,229 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:58:55,240 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:58:55,291 INFO _internal _log  * Restarting with stat
+2024-08-19 14:58:55,413 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:58:55,413 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:59:01,444 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:59:01,493 INFO _internal _log  * Restarting with stat
+2024-08-19 14:59:01,617 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:59:01,617 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:59:18,690 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:59:18,755 INFO _internal _log  * Restarting with stat
+2024-08-19 14:59:18,892 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:59:18,892 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:59:30,948 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:59:30,994 INFO _internal _log  * Restarting with stat
+2024-08-19 14:59:31,113 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:59:31,114 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:59:33,129 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:59:33,181 INFO _internal _log  * Restarting with stat
+2024-08-19 14:59:33,315 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:59:33,315 INFO _internal _log  * Debugger PIN: 345-527-180
+2024-08-19 14:59:37,337 INFO _internal _log  * Detected change in '/home/aluno/wedson/PWEB220241/helloflask-main/app.py', reloading
+2024-08-19 14:59:37,410 INFO _internal _log  * Restarting with stat
+2024-08-19 14:59:37,558 WARNING _internal _log  * Debugger is active!
+2024-08-19 14:59:37,558 INFO _internal _log  * Debugger PIN: 345-527-180

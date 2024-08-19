@@ -2,35 +2,19 @@
 Este código contém funções para interagir com o banco de dados SQLite.
 
 """
-import sqlite3
 from json import dumps, loads
-from flask import Flask, request, jsonify, g
-from Globals import DATABASE_NAME
+from flask import Flask, request, jsonify
 # Adicionei o 'g' ele guarda o contexto da aplicação
+
+from helpers.logging import logger
+# Logging
+
+
+from helpers.database import get_db_connections
 
 app = Flask(__name__)
 
-def get_db_connection():
-    """
-    gera um conexão com banco de dados, armazenando informações no contexto da aplicação
 
-    - conn = getattr(g, '_database', None)
-        Pega o '_database' do 'g', se n'ao tiver ele retorna none e conecta depois 
-        (Fica no contexto)
-        
-    - conn = g._database = sqlite3.connect(DATABASE_NAME)
-        Coloca no "_database" database do contexto a conexão com o sqlite3 e coloca a conexão em 
-        contexto dentro do conn
-
-    -conn.row_factory = sqlite3.Row
-        O resultado da query vem em um objeto do sqlite3 que se comporta como dicionario
-    
-    """
-    conn = getattr(g, '_database', None)
-    if conn is None:
-        conn = g._database = sqlite3.connect(DATABASE_NAME)
-        conn.row_factory = sqlite3.Row
-    return conn
 
 @app.teardown_appcontext #Executa a função 'close_connection' quando o contexto é encerrado
 def close_connection(exception):
@@ -102,6 +86,7 @@ def index():
     """
     Função padrão do flask, retorna a versão do código
     """
+    logger.info("Rota padão")
     return (jsonify({"versao": 1}), 200)
 
 
